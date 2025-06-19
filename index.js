@@ -2,7 +2,7 @@
 
 class Node{
   constructor(data = "", right = null, left = null){
-    this.data = data;;
+    this.data = data;
     this.right = right;
     this.left = left;
   }
@@ -103,6 +103,45 @@ class Tree{
     return root;
 
   }
+
+  insertValue(value){
+
+    if(!this.root){
+      throw new Error("No root estabilished");
+    }
+
+    let currNode = this.root;
+    let nodeValue = currNode.data;
+    let newNode = new Node(value);
+
+    while(currNode){
+      if(nodeValue == value){
+        console.log(`${value} = ${nodeValue}`);
+        return;
+      }
+      if(value > nodeValue){
+        console.log(`${value} > ${nodeValue}`);
+        if(currNode.right){
+          currNode = currNode.right;
+          nodeValue = currNode.data;
+        }else{
+          currNode.right = newNode;
+          break;
+        }
+      }else{
+        console.log(`${value} < ${nodeValue}`);
+        if(currNode.left){
+          currNode = currNode.left;
+          nodeValue = currNode.data;
+        }else{
+          currNode.left = newNode;
+          break;
+        }
+      }
+    }
+
+  }
+
 }
 
 const prettyPrint = (node, prefix = '', isLeft = true) => {
@@ -121,4 +160,7 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
 const myTree = new Tree();
 myTree.buildTree([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]);
 
+prettyPrint(myTree.root);
+
+myTree.insertValue("19");
 prettyPrint(myTree.root);
