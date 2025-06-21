@@ -202,6 +202,31 @@ class Tree {
 
   }  
 
+  preOrder(callback){
+    const stack = new Array();
+
+    if(!callback){
+      throw new Error("No callback inserted");
+    }
+    if(!this.root){
+      throw new Error("No root to traverse");
+    }
+
+    stack.push(this.root);
+
+    while(stack.length !== 0){
+      let top = stack.pop();
+      callback(top);
+      if(top.right){
+        stack.push(top.right);
+      }
+      if(top.left){
+        stack.push(top.left);
+      }
+    }
+
+  }
+
   
 
 }
@@ -230,4 +255,5 @@ prettyPrint(myTree.root);
 
 console.log(myTree.findValue(1));
 
-myTree.levelOrder((x)=>{(x.data)});
+//myTree.levelOrder((x)=>{(x.data)});
+myTree.preOrder((x)=>{console.log(x.data)});
