@@ -11,50 +11,6 @@ class Tree {
 
   constructor() {}
 
-  // buildTree(arr){
-
-  //   const q = new Array();
-  //   const mid = Math.floor((arr.length - 1)/2);
-  //   const root = new Node(arr[mid]);
-
-  //   q.push({node: root, range: [0, arr.length -1]});
-
-  //   while(q.length !== 0){
-  //     console.log("q.length: " +q.length);
-  //     console.log(q);
-  //     let front = q.shift();
-  //     let frontNode = front.node;
-  //     let [s, e] = front.range;
-
-  //     let index = s + Math.round((e - s)/2);
-
-  //     if(s < index){
-  //       let leftStart = s;
-  //       let leftEnd = index -1;
-  //       let leftMid = leftStart + Math.round((leftEnd - leftStart)/2);
-
-  //       let leftNode = new Node(arr[leftMid]);
-  //       q.push({node: leftNode, range: [leftStart, leftEnd]});
-  //       frontNode.left = leftNode;
-  //     }
-
-  //     if(e > index){
-  //       let rightStart = index -1;
-  //       let rightEnd = e;
-  //       let rightMid = rightStart + Math.round((rightEnd - rightStart)/2);
-
-  //       let rightNode = new Node(arr[rightMid]);
-  //       q.push({node: rightNode, range: [rightStart, rightEnd]});
-  //       frontNode.right = rightNode;
-  //     }
-
-  //   }
-
-  //   this.root = root;
-
-  //   return root
-  // }
-
   buildTree(arr) {
     // create the root
     const mid = Math.floor(arr.length / 2);
@@ -133,198 +89,6 @@ class Tree {
     }
   }
 
-  // deleteItem(value) {
-  //   const s = new Array();
-  //   s.push(this.root);
-
-  //   let found = false;
-  //   let item = this.root;
-  //   //if its the root don't go in the loop
-  //   if (value === this.root.data) {
-  //     found = true;
-  //   } else {
-  //     while (s[s.length - 1]) {
-  //       let top = s[s.length - 1];
-  //       if (top.data === value) {
-  //         item = top;
-  //         found = true;
-  //         break;
-  //       } else if (value > top.data) {
-  //         s.push(top.right);
-  //       } else {
-  //         s.push(top.left);
-  //       }
-  //     }
-
-  //     if (!found) {
-  //       return null;
-  //     }
-
-  //     // three cases
-
-  //     //1 item is a leaf
-
-  //     s.pop();
-  //     let parent = s.pop();
-
-  //     if (!item.right && !item.left) {
-  //       if (!parent) {
-  //         this.root = null;
-  //         return item;
-  //       }
-  //       if (item.data > parent.data) {
-  //         parent.right = null;
-  //       } else {
-  //         parent.left = null;
-  //       }
-  //       //2 item has 1 child
-  //     } else if (!item.right || !item.left) {
-  //       if (!parent) {
-  //         this.root = child;
-  //         return item;
-  //       }
-
-  //       let child = item.right ? item.right : item.left;
-  //       if (item.data > parent.data) {
-  //         parent.right = child;
-  //       } else {
-  //         parent.left = child;
-  //       }
-  //       //3 item has both childs
-  //     } else {
-  //       //find the smaller right descendant (nearest)
-  //       let nearestParent = item;
-  //       let nearest = item.right;
-  //       while(nearest.left){
-  //         nearestParent = nearest;
-  //         nearest = nearest.left;
-  //       }
-
-  //       if(item.data > parent.right){
-  //         parent.right = nearest;
-  //       }else{
-  //         parent.left = nearest;
-  //       }
-
-  //       // if nearest has a right child
-  //       if(nearest.right){
-  //         nearest.left = item.left;
-  //         nearestParent.left = nearest.right;
-  //         nearest.right = (item.right === nearest) ? nearest.right : item.right;
-
-  //         // if nearest is a leaf, substitute the item with it
-  //       }else{
-  //         nearest.right = (item.right === nearest) ? null: item.right;
-  //         nearest.left = item.left;
-  //         if(nearestParent !== item){
-  //           nearestParent.left = null;
-  //         }
-  //       }
-
-  //     }
-  //     return item;
-  //   }
-  // }
-
-
-  // deleteItem2(value) {
-  //   const stack = new Array();
-  //   stack.push(this.root);
-
-  //   let item = this.root;
-
-  //   let top = this.root;
-  //   let past = null;
-
-  //   console.log(value);
-  //   while (top && past !== top) {
-  //     console.log("-----------------")
-  //     console.log(top);
-  //     console.log(past);
-  //     if (value < top.data) {
-  //       console.log("value < top.data");
-  //       stack.push(top.left);
-  //     } else if (value > top.data) {
-  //       console.log("value > top.data");
-  //       stack.push(top.right);
-  //     } else {
-  //       console.log("eslesesesesese")
-  //       if (!top.right) {
-  //         if (stack.length > 1) {
-  //           let parent = stack[stack.length - 2];
-  //           if (top.data > parent.data) {
-  //             parent.right = top.left;
-  //           } else {
-  //             parent.left = top.left;
-  //           }
-  //         } else {
-  //           this.root = null;
-  //         }
-  //         return item;
-  //       } else if (!top.left) {
-  //         if (stack.length > 1) {
-  //           let parent = stack[stack.length - 2];
-  //           if (top.data > parent.data) {
-  //             parent.right = top.right;
-  //           } else {
-  //             parent.left = top.right;
-  //           }
-  //         } else {
-  //           this.root = null;
-  //         }
-  //         return item;
-  //       } else {
-  //         console.log("-----");
-  //         let succ = top.right;
-  //         let parentsucc = top;
-  //         while (succ && succ.left) {
-  //           parentsucc = succ;
-  //           succ = succ.left;
-  //         }
-  //         console.log("++----");
-  //         console.log(parentsucc)
-  //         if(parentsucc){
-  //           if(succ.data > parentsucc){
-  //             parentsucc.right = top;
-  //           }else{
-  //             parentsucc.left = top;
-  //           }
-  //         }
-
-  //         if (stack.length > 1) {
-  //           let parent = stack[stack.length - 2];
-  //           if (top.data > parent.data) {
-  //             parent.right = succ;
-  //             console.log(parent);
-  //           } else {
-  //             parent.left = succ;
-  //             console.log(parent);
-  //           }
-  //         }else{
-  //           this.root = succ;
-  //         }
-  //         console.log("+----");
-  //         let tempL = succ.left;
-  //         let tempR = succ.right 
-  //         succ.left = top.left;
-  //         succ.right = top.right;
-  //         top.left = tempL;
-  //         top.right = tempR;
-  //         console.log(succ);
-  //         console.log(top);
-  //         console.log("++++++++++++++++");
-  //         stack.push(succ.right);
-  //       }
-  //     }
-  //     past = top;
-  //     top = stack[stack.length - 1];
-  //   }
-
-  //   item = top;
-
-  //   return item;
-  // }
-
   deleteItem(value){
 
     let curr = this.root;
@@ -401,6 +165,43 @@ class Tree {
     }
 
   }
+
+  findValue(value){
+    let temp = this.root;
+    while(temp && temp.data !== value){
+      if(value > temp.data){
+        temp = temp.right;
+      }else{
+        temp = temp.left;
+      }
+    }
+    return temp;
+  }
+
+  levelOrder(callback){
+    const q = new Array();
+    q.push(this.root);
+
+    if(!callback){
+      throw new Error("No callback inserted");
+    }
+    if(!this.root){
+      throw new Error("No root to traverse");
+    }
+
+    while(q.length !== 0){
+      let front = q.shift();
+      callback(front);
+      if(front.left){
+        q.push(front.left);
+      }
+      if(front.right){
+        q.push(front.right);
+      }
+    }
+
+  }  
+
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -422,45 +223,9 @@ myTree.buildTree([
   23, 24,
 ]);
 
-// myTree.insertValue(19);
-
-//delete a leaf
-// myTree.deleteItem(24);
-// myTree.deleteItem(22);
-// myTree.deleteItem(23);
-// myTree.deleteItem(20);
-// myTree.deleteItem(19);
-// myTree.deleteItem(21);
 
 prettyPrint(myTree.root);
 
-// delete an item with a child
-// myTree.deleteItem(7);
-// myTree.deleteItem(4);
-// myTree.deleteItem(13);
-myTree.deleteItem(11);
-myTree.deleteItem(13);
-myTree.deleteItem(14);
-myTree.deleteItem(15);
-myTree.deleteItem(16);
-myTree.deleteItem(17);
-myTree.deleteItem(18);
-myTree.deleteItem(19);
-myTree.deleteItem(20);
-myTree.deleteItem(21);
-myTree.deleteItem(22);
-myTree.deleteItem(23);
-myTree.deleteItem(24);
-myTree.deleteItem(7);
-myTree.deleteItem(8);
-myTree.deleteItem(9);
-myTree.deleteItem(10);
-myTree.deleteItem(12);
-myTree.deleteItem(4);
-myTree.deleteItem(6);
-myTree.deleteItem(5);
-myTree.deleteItem(2);
-myTree.deleteItem(3);
-myTree.deleteItem(1);
+console.log(myTree.findValue(1));
 
-prettyPrint(myTree.root);
+myTree.levelOrder((x)=>{(x.data)});
