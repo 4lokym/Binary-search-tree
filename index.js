@@ -332,6 +332,23 @@ class Tree {
     }
   }
 
+  isBalanced(){
+    if(!this.root){
+      return true;
+    }
+    if(!this.root.left && !this.root.right){
+      return true;
+    }
+    const lHeight = (this.root.left) ? this.height(this.root.left.data) : null;
+    const rHeight = (this.root.right) ? this.height(this.root.right.data) : null;
+    if(!lHeight || !rHeight){
+      return false;
+    }
+    console.log(lHeight);
+    console.log(rHeight);
+    const diff = Math.abs(lHeight - rHeight);
+    return diff < 2;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -361,11 +378,9 @@ console.log(myTree.findValue(1));
 //myTree.levelOrder((x)=>{(x.data)});
 //myTree.postOrder((x)=>{console.log(x.data)});
 myTree.insertValue(100);
-myTree.insertValue(101);
-myTree.insertValue(102);
-myTree.insertValue(103);
-myTree.insertValue(104);
+
 
 prettyPrint(myTree.root)
 
 console.log(myTree.height(13));
+console.log(myTree.isBalanced());
