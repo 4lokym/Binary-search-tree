@@ -349,6 +349,20 @@ class Tree {
     const diff = Math.abs(lHeight - rHeight);
     return diff < 2;
   }
+
+  reBalance(){
+    if(!this.root){
+      return null
+    }
+
+    const newArr = new Array();
+    this.inOrder((node) =>{
+      newArr.push(node.data);
+    })
+
+    this.buildTree(newArr);
+    return true;
+  }
 }
 
 const prettyPrint = (node, prefix = "", isLeft = true) => {
@@ -378,9 +392,14 @@ console.log(myTree.findValue(1));
 //myTree.levelOrder((x)=>{(x.data)});
 //myTree.postOrder((x)=>{console.log(x.data)});
 myTree.insertValue(100);
+myTree.insertValue(101);
+myTree.insertValue(102);
+myTree.insertValue(103);
 
 
 prettyPrint(myTree.root)
 
 console.log(myTree.height(13));
 console.log(myTree.isBalanced());
+myTree.reBalance();
+prettyPrint(myTree.root);
