@@ -224,7 +224,24 @@ class Tree {
         stack.push(top.left);
       }
     }
+  }
 
+  inOrder(callback){
+    const stack = new Array();
+    stack.push(this.root);
+
+    while(stack.length !== 0){
+      let top = stack.pop();
+      while(top){
+        stack.push(top);
+        top = top.left;
+      }
+      if(stack.length !== 0){
+        top = stack.pop();
+        callback(top);
+        stack.push(top.right);
+      }
+    }
   }
 
   
@@ -256,4 +273,4 @@ prettyPrint(myTree.root);
 console.log(myTree.findValue(1));
 
 //myTree.levelOrder((x)=>{(x.data)});
-myTree.preOrder((x)=>{console.log(x.data)});
+myTree.inOrder((x)=>{console.log(x.data)});
