@@ -64,11 +64,11 @@ class Tree {
 
     while (currNode) {
       if (nodeValue == value) {
-        console.log(`${value} = ${nodeValue}`);
+        //console.log(`${value} = ${nodeValue}`);
         return;
       }
       if (value > nodeValue) {
-        console.log(`${value} > ${nodeValue}`);
+        //console.log(`${value} > ${nodeValue}`);
         if (currNode.right) {
           currNode = currNode.right;
           nodeValue = currNode.data;
@@ -77,7 +77,7 @@ class Tree {
           break;
         }
       } else {
-        console.log(`${value} < ${nodeValue}`);
+        //console.log(`${value} < ${nodeValue}`);
         if (currNode.left) {
           currNode = currNode.left;
           nodeValue = currNode.data;
@@ -250,7 +250,7 @@ class Tree {
     }
   }
 
-  postOrder(callback){
+  postOrder(callback, start = this.root){
 
     if(!callback){
       throw new Error("No callback inserted");
@@ -261,7 +261,7 @@ class Tree {
     const stack = new Array();
     const stackB = new Array();
 
-    stack.push(this.root);
+    stack.push(start);
     stackB.push(true);
 
     while(stack.length !== 0){
@@ -288,6 +288,49 @@ class Tree {
     }
   }
   
+
+  depth(value, start = this.root){
+    if(!this.root){
+      return null
+    }
+    let height = 0;
+    let node = start;
+    while(node){
+      if(value === node.data){
+        return height;
+      }else if(value > node.data){
+        node = node.right;
+        height++;
+      }else{
+        node = node.left;
+        height++;
+      }
+    }
+    return null;
+  }
+
+  height(value){
+    if(!this.root){
+      return null
+    }
+    let height = 0;
+    const startValue =(value === this.root.data) ? this.root : this.findValue(value);
+    if(!startValue){
+      return null;
+    }
+
+    this.postOrder((node)=>{
+      let depth = this.depth(node.data, startValue);
+      if(depth > height){
+        height = depth;
+      }
+    }, startValue)
+    if(value === undefined){
+      return null;
+    }else{
+      return height;
+    }
+  }
 
 }
 
@@ -316,4 +359,13 @@ prettyPrint(myTree.root);
 console.log(myTree.findValue(1));
 
 //myTree.levelOrder((x)=>{(x.data)});
-myTree.postOrder((x)=>{console.log(x.data)});
+//myTree.postOrder((x)=>{console.log(x.data)});
+myTree.insertValue(100);
+myTree.insertValue(101);
+myTree.insertValue(102);
+myTree.insertValue(103);
+myTree.insertValue(104);
+
+prettyPrint(myTree.root)
+
+console.log(myTree.height(13));
